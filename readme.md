@@ -9,7 +9,7 @@
 - The information about installing terraform can be found on the HashiCorp website 
 [here](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
-## What is a Terraform Outputs: 
+## What is Terraform Outputs: 
 
 - Outputs are pretty much like returning values, it might return a value that has been computed during the deployment of the AWS instance or value that is hardcoded into `main.tf` for example.
 - Detailed information about Terraform Outputs can be found at official HashiCorp Terraform page [here](https://www.terraform.io/docs/configuration/outputs.html)
