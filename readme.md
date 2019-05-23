@@ -17,23 +17,29 @@
 ## How to use it :
 
 - In a directory of your choice, clone the github repository 
-```
-git clone https://github.com/martinhristov90/terraformOutputs.git
-```
+    ```
+    
+    git clone https://github.com/martinhristov90/terraformOutputs.git
+    
+    ```
 
 - Change into the directory
-```
-cd terraformOutputs
-```
+    ```
+
+    cd terraformOutputs
+
+    ```
 
 - It is good practice to have a separate user that Terraform is going to perform actions with, more information [how to create a user in AWS](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html)
 
 - set AWS credentials as environmental variables, as described [here](https://www.terraform.io/docs/providers/aws/index.html#environment-variables)
 
-```
-export AWS_ACCESS_KEY_ID="accesskey"
-export AWS_SECRET_ACCESS_KEY="secretkey"
-```
+    ```
+
+    export AWS_ACCESS_KEY_ID="accesskey"
+    export AWS_SECRET_ACCESS_KEY="secretkey"
+
+    ```
 
 - Use your favorite text editor to modify the file `main.tf`. Set the following values : 
     - `region`     - This is the region where the instance is going to be deployed.
@@ -44,61 +50,63 @@ export AWS_SECRET_ACCESS_KEY="secretkey"
 The output should look like this :
 
     ```shell
-        --- SNIP ---
+    --- SNIP ---
 
-        * provider.aws: version = "~> 2.11"
+    * provider.aws: version = "~> 2.11"
 
-        Terraform has been successfully initialized!
+    Terraform has been successfully initialized!
 
-        --- SNIP ---
+    --- SNIP ---
     ```
     
-- Now, Terraform has downloaded the AWS provider for you automatically.
+- Now, Terraform has downloaded the AWS provider for you, automatically.
 - To preview what is going to happen without actually performing any actions, execute `terraform plan`. The output should look like this :
 
     ```shell
-            Refreshing Terraform state in-memory prior to plan...
-        The refreshed state will be used to calculate this plan, but will not be
-        persisted to local or remote state storage.
-        
-        
-        ------------------------------------------------------------------------
-        
-        An execution plan has been generated and is shown below.
-        Resource actions are indicated with the following symbols:
-          + create
-        
-        Terraform will perform the following actions:
-        
-          + aws_instance.web
-              --- SNIP ---
-              ami:                               "ami-0444fa3496fb4fab2"
-              --- SNIP ---
-              get_password_data:                 "false"
-              instance_type:                     "t2.micro"
-              source_dest_check:                 "true"
-              --- SNIP ---
-              subnet_id:                         "subnet-2f591701"
-              tags.%:                            "2"
-              tags.name:                         "MYMACHINE"
-              tags.ping:                         "pong"
-              vpc_security_group_ids.#:          "1"
-              vpc_security_group_ids.2189854857: "sg-3ddbcb64"
-        
-        
-        Plan: 1 to add, 0 to change, 0 to destroy.
-        
-        ------------------------------------------------------------------------
-        
-        Note: You didn't specify an "-out" parameter to save this plan, so Terraform
-        can't guarantee that exactly these actions will be performed if
-        "terraform apply" is subsequently run.
-        
+    
+    Refreshing Terraform state in-memory prior to plan...
+    The refreshed state will be used to calculate this plan, but will not be
+    persisted to local or remote state storage.
+    
+    
+    ------------------------------------------------------------------------
+    
+    An execution plan has been generated and is shown below.
+    Resource actions are indicated with the following symbols:
+      + create
+    
+    Terraform will perform the following actions:
+    
+      + aws_instance.web
+          --- SNIP ---
+          ami:                               "ami-0444fa3496fb4fab2"
+          --- SNIP ---
+          get_password_data:                 "false"
+          instance_type:                     "t2.micro"
+          source_dest_check:                 "true"
+          --- SNIP ---
+          subnet_id:                         "subnet-2f591701"
+          tags.%:                            "2"
+          tags.name:                         "MYMACHINE"
+          tags.ping:                         "pong"
+          vpc_security_group_ids.#:          "1"
+          vpc_security_group_ids.2189854857: "sg-3ddbcb64"
+    
+    
+    Plan: 1 to add, 0 to change, 0 to destroy.
+    
+    ------------------------------------------------------------------------
+    
+    Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+    can't guarantee that exactly these actions will be performed if
+    "terraform apply" is subsequently run.
+    
     ```
     
 - If everything looks good, execute `terraform apply` to actually provision the resources defined in `main.tf`. The output should look like this :
 
     ```
+
     ---SNIP---
     Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
@@ -106,9 +114,11 @@ The output should look like this :
 
     public_dns = ec2-3-87-197-57.compute-1.amazonaws.com
     public_ip = 3.87.197.57
+
     ```
 - It can bee seen that outputs `public_dns` and `public_ip` are printed out, this is set in the `main.tf` file with the following statement:
     ```
+
     output "public_ip" {
     value = "${aws_instance.web.public_ip}"
     }
@@ -116,6 +126,7 @@ The output should look like this :
     output "public_dns" {
       value = "${aws_instance.web.public_dns}"
     }
+
     ```
 
 - Now you should have a running instance in AWS.
